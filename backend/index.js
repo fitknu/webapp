@@ -1,0 +1,62 @@
+const asu = require('./asu.json')
+
+const getData = require('./eGetData')
+const parseData = require('./eParse')
+const sort = require('./eSort')
+const strip = require('./eStrip')
+const fetch = require('node-fetch').default
+
+// const fs = require('fs')
+async function main()
+{
+  try 
+  {
+
+    const IP = 'https://input_schedule.druven.workers.dev/'
+
+    console.time("ajax")
+    // const out = {}
+    const age = 1
+    const namesOfGroups = Object.keys(asu.ages[age])
+    await new Promise((resolve, reject) =>
+    {
+      let counter = 0
+      namesOfGroups.forEach(async groupName =>
+      {
+        const groupId = asu.ages[age][groupName]
+        const rawData = await getData(age, groupId)
+        const parsedData = parseData(rawData)
+        sort(parsedData, 0, parsedData.length - 1)
+        const strippedData = strip(parsedData)
+        console.log(`${groupName} done`);
+
+        const body = {
+          name: `s:${age}:${groupName}`,
+          schedule: strippedData,
+          pass: "hello"
+        }
+        // out[groupName] = strippedData
+        // const response = {}
+        const res = await fetch(IP, { method: "POST", body: JSON.stringify(body) })
+        const response = await res.json()
+        if (!response.valid)
+        {
+          console.log(`Failed ${groupName}`)
+        }
+        counter++
+        if (counter === namesOfGroups.length)
+        {
+          resolve("Done")
+        }
+      })
+    })
+    console.timeEnd('ajax')
+    // fs.writeFileSync(`age${age}.json`, JSON.stringify(out))
+  } catch (e)
+  {
+    console.log(`Problem: ${e}`)
+  }
+
+}
+global.main = main
+// main()
