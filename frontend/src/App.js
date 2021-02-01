@@ -27,13 +27,12 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-function App()
-{
+function App() {
   const classes = useStyles()
   const [drawer, setDrawer] = useState(false)
 
   const [schedule, setSchedule] = useState([])
-  
+
   return (
     <div className="App" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <AppBar position="static">
@@ -52,7 +51,7 @@ function App()
         onClose={() => setDrawer(false)}
       >
         <List>
-          <ListItem button>
+          <ListItem button onClick={() => setDrawer(false)}>
             <ListItemIcon>
               <GridOnIcon />
             </ListItemIcon>
