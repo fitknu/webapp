@@ -1,6 +1,6 @@
 {
   "name": "my-action",
-  "main": "./index.js",
+  "main": "./test.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "deploy": "ibmcloud fn action update my-action dist/bundle.js --kind nodejs:10"

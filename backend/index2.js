@@ -1,20 +1,22 @@
-const parseData = require('./eParse')
-const getData = require('./eGetData')
-const sort = require('./eSort')
-const strip = require('./eStrip')
-const fs = require('fs')
+const fetch = require('node-fetch')
+
 async function main()
 {
-  const data = await getData()
-  const next = parseData(data)
-  // return {body: next}
-  sort(next, 0, next.length-1)
-  const done = strip(next)
-  fs.writeFileSync('data.json', JSON.stringify(done))
-  // const data = [54,12,41]
-  // const next = sort(data, 0, data.length-1)
-  // console.log(data);
+  const body = {
+    "age": 2,
+    "group": "ИПЗ-20-1",
+    "pass": "iamreadyforrevolution",
+    "schedule": []
+  }
+  const IP = 'https://got_schedule.knu.workers.dev'
+  try
+  {
+    const response = await fetch(IP, { method: 'POST', body: JSON.stringify(body) })
+    const text = await response.text()
+    console.log(text)
+  } catch (error)
+  {
+    console.log(error)
+  }
 }
-
-global.main = main
 main()

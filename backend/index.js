@@ -12,11 +12,11 @@ async function main()
   try 
   {
 
-    const IP = 'https://input_schedule.druven.workers.dev/'
+    const IP = 'https://got_schedule.knu.workers.dev/'
 
     console.time("ajax")
     // const out = {}
-    const age = 1
+    const age = 5
     const namesOfGroups = Object.keys(asu.ages[age])
     await new Promise((resolve, reject) =>
     {
@@ -28,20 +28,23 @@ async function main()
         const parsedData = parseData(rawData)
         sort(parsedData, 0, parsedData.length - 1)
         const strippedData = strip(parsedData)
-        console.log(`${groupName} done`);
 
         const body = {
-          name: `s:${age}:${groupName}`,
+          age,
+          group: groupName,
           schedule: strippedData,
-          pass: "hello"
+          pass: "iamreadyforrevolution"
         }
         // out[groupName] = strippedData
         // const response = {}
         const res = await fetch(IP, { method: "POST", body: JSON.stringify(body) })
-        const response = await res.json()
-        if (!response.valid)
+        const response = await res.text()
+        if (response !== "great")
         {
           console.log(`Failed ${groupName}`)
+        } else 
+        {
+          console.log(`${groupName} done`);
         }
         counter++
         if (counter === namesOfGroups.length)

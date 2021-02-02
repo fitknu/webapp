@@ -50,17 +50,17 @@ function GetQuery({ setSchedule }) {
         localStorage.removeItem('schedule')
         return
       }
-      fetch(`https://mute-darkness.druven.workers.dev/?age=${age}&group=${newGroup}`)
+      setLoading(true)
+      fetch(`https://get_plan.knu.workers.dev/?age=${age}&group=${newGroup}`)
         .then(data => data.json())
         .then(data => data.schedule)
-        .then(data => JSON.parse(data))
         .then(data => {
           console.log(data)
           if (data !== null) {
             setSchedule(data)
           } else {
             console.log('Null data')
-            console.log(`https://mute-darkness.druven.workers.dev/?age=${age}&group=${newGroup}`)
+            console.log(`get_plan.knu.workers.dev/?age=${age}&group=${newGroup}`)
           }
           setLoading(false)
           const id = { age, group: newGroup }
@@ -72,7 +72,8 @@ function GetQuery({ setSchedule }) {
           setLoading(false)
         })
     } catch (e) {
-
+      console.log(e)
+      
     }
   }
 
@@ -86,15 +87,14 @@ function GetQuery({ setSchedule }) {
       setAge(oldAge)
       setGroups(Asu.ages[oldAge])
       setGroup(oldGroup)
-
+      console.log('Got cache data')
       setLoading(true)
-      fetch(`https://mute-darkness.druven.workers.dev/?age=${oldAge}&group=${oldGroup}`)
+      fetch(`https://get_plan.knu.workers.dev/?age=${oldAge}&group=${oldGroup}`)
         .then(data => data.json())
         .then(data => data.schedule)
-        .then(data => JSON.parse(data))
         .then(data => {
           if (data !== null) {
-            console.log('got cached data')
+            console.log('Loaded new data')
             setSchedule(data)
           }
           setLoading(false)

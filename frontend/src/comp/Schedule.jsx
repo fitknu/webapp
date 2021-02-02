@@ -5,7 +5,34 @@ import DayCard from "./DayCard";
 function getWeeks(data)
 {
   const weeks = new Array(data.length)
+  
+  const date = new Date()
+  const day = date.getDay()
+  const month = date.getMonth() + 1
+  const year = date.getFullYear()
+
+  //make a slice of date, [currentDay, end]
+  for (let i = 0; i < data.length; i++)
+  {
+    const d = parseInt(data[i].date.slice(0, 2))
+    const m = parseInt(data[i].date.slice(3, 5))
+    const y = parseInt(data[i].date.slice(6))
+    if (day === d && month === m && year === y)
+    {
+      data = data.slice(i)
+      break
+    }
+  }
+
+  //Separate days into weeks
   let weekIndex = -1
+  //If the weeks starts with a day other than Monday,
+  //start a week here
+  if (data.length > 0 && data[0].dayOfWeek !== 'Пн')
+  {
+    weekIndex = 0
+    weeks[0] = []
+  }
   data.forEach(entry =>
   {
     if (entry.dayOfWeek === 'Пн')

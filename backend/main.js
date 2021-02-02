@@ -10,7 +10,7 @@ async function main()
 {
   console.time("ajax")
   const schedule = { ages: {} }
-  const age = 1
+  const age = 5
   schedule['ages'][age] = {}
   const namesOfGroups = Object.keys(asu.ages[age])
   await new Promise((resolve, reject) =>
@@ -33,7 +33,7 @@ async function main()
       }
     })
   })
-  fs.writeFileSync("schedule.json", JSON.stringify(schedule))
+  fs.writeFileSync("schedule5.json", JSON.stringify(schedule))
   console.timeEnd('ajax')
   // for (let i = 0; false && i < 3; i++)
   // {
