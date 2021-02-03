@@ -12,11 +12,12 @@ async function main()
   try 
   {
 
-    const IP = 'https://got_schedule.knu.workers.dev/'
-
+    // const IP = 'https://got_schedule.knu.workers.dev/'
+    // const IP = "https://synchsmthome.000webhostapp.com"
+    const IP = "https://synchsmthome.000webhostapp.com/index.php"
     console.time("ajax")
-    // const out = {}
-    const age = 5
+    const out = {}
+    const age = 4
     const namesOfGroups = Object.keys(asu.ages[age])
     await new Promise((resolve, reject) =>
     {
@@ -35,12 +36,13 @@ async function main()
           schedule: strippedData,
           pass: "iamreadyforrevolution"
         }
-        // out[groupName] = strippedData
+        out[groupName] = strippedData
         // const response = {}
-        const res = await fetch(IP, { method: "POST", body: JSON.stringify(body) })
-        const response = await res.text()
+        // const res = await fetch(IP, { headers: {"Content-type": "application/json"}, method: "POST", body: "JSON.stringify(body)" })
+        const response = ""// await res.text()
         if (response !== "great")
         {
+          console.log(response)
           console.log(`Failed ${groupName}`)
         } else 
         {
@@ -54,7 +56,7 @@ async function main()
       })
     })
     console.timeEnd('ajax')
-    // fs.writeFileSync(`age${age}.json`, JSON.stringify(out))
+    fs.writeFileSync(`age${age}.json`, JSON.stringify(out))
   } catch (e)
   {
     console.log(`Problem: ${e}`)
@@ -62,4 +64,4 @@ async function main()
 
 }
 global.main = main
-// main()
+main()
