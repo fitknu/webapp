@@ -51,7 +51,7 @@ function GetQuery({ setSchedule }) {
         return
       }
       setLoading(true)
-      fetch(`https://get_plan.knu.workers.dev/?age=${age}&group=${newGroup}`)
+      fetch(`https://s.knu.workers.dev/?age=${age}&group=${newGroup}`)
         .then(data => data.json())
         .then(data => data.schedule)
         .then(data => {
@@ -89,7 +89,7 @@ function GetQuery({ setSchedule }) {
       setGroup(oldGroup)
       console.log('Got cache data')
       setLoading(true)
-      fetch(`https://get_plan.knu.workers.dev/?age=${oldAge}&group=${oldGroup}`)
+      fetch(`https://s.knu.workers.dev/?age=${oldAge}&group=${oldGroup}`)
         .then(data => data.json())
         .then(data => data.schedule)
         .then(data => {
