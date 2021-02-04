@@ -5,7 +5,7 @@ import DayCard from "./DayCard";
 function getWeeks(data)
 {
   const weeks = new Array(data.length)
-  
+
   const date = new Date()
   const day = date.getDay()
   const month = date.getMonth() + 1
@@ -23,6 +23,11 @@ function getWeeks(data)
       break
     }
   }
+
+  data.forEach(day =>
+  {
+    // day.dayOfWeek = 'Пн'
+  })
 
   //Separate days into weeks
   let weekIndex = -1

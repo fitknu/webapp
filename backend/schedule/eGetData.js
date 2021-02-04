@@ -16,13 +16,13 @@ async function getData(age, groupId)
     const nextYear = nextDate.getFullYear()
 
     const params = {
-      "TimeTableForm[faculty]": "5", //no idea what this is, but it needs to be here
+      "TimeTableForm[faculty]": "5", //FIT faculty
       "TimeTableForm[course]": `${age}`,
       "TimeTableForm[group]": `${groupId}`,
       "TimeTableForm[date1]": `${day}.${month}.${year}`,
       "TimeTableForm[date2]": `${nextDay}.${nextMonth}.${nextYear}`,
       "TimeTableForm[r11]": "5", //no idea what this is, but it needs to be here
-      "timeTable": "0"
+      "timeTable": "0" //no idea
     }
     const querryString = Object.keys(params).map(key => key + '=' + params[key]).join('&')
 

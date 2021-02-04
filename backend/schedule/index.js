@@ -12,7 +12,6 @@ async function main()
   try 
   {
 
-    // const IP = 'https://got_schedule.knu.workers.dev/'
     // const IP = "https://synchsmthome.000webhostapp.com"
     const IP = "https://synchsmthome.000webhostapp.com/index.php"
     console.time("ajax")

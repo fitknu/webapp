@@ -25,7 +25,7 @@ async function main()
       const strippedData = strip(parsedData)
       schedule['ages'][age][groupName] = strippedData
       console.log(`${groupName} done`);
-
+      
       counter++
       if (counter === namesOfGroups.length)
       {
@@ -33,7 +33,7 @@ async function main()
       }
     })
   })
-  fs.writeFileSync("schedule5.json", JSON.stringify(schedule))
+  fs.writeFileSync(`schedule${age}.json`, JSON.stringify(strippedData))
   console.timeEnd('ajax')
   // for (let i = 0; false && i < 3; i++)
   // {

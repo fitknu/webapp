@@ -1,8 +1,9 @@
-import {
-  FormControl, InputLabel,
-  MenuItem, Select, TextField,
-  makeStyles, Grid, CircularProgress
-} from "@material-ui/core";
+import
+  {
+    FormControl, InputLabel,
+    MenuItem, Select, TextField,
+    makeStyles, Grid, CircularProgress
+  } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import { useEffect, useState } from "react";
 import Asu from '../asu.json'
@@ -25,7 +26,8 @@ const useStyles = makeStyles(theme => ({
     bottom: 0,
   }
 }))
-function GetQuery({ setSchedule }) {
+function GetQuery({ setSchedule })
+{
   const classes = useStyles()
   const [age, setAge] = useState('')
   const [group, setGroup] = useState(null)
@@ -34,51 +36,64 @@ function GetQuery({ setSchedule }) {
   // const [ages, setAges] = useState([])
   const [groups, setGroups] = useState([])
 
-  const handleAge = (newAge) => {
+  const handleAge = (newAge) =>
+  {
     setAge(newAge)
     setSchedule([])
     setGroup(null)
     setGroups(Asu.ages[newAge])
   }
-  const handleGroup = (newGroup) => {
+  const handleGroup = (newGroup) =>
+  {
+    //TODO fix on change group, set schedule to [], 
     console.log(`${age} ${newGroup}`)
     setGroup(newGroup)
+    setSchedule([])
 
-    try {
-      if (newGroup === null) {
+    try
+    {
+      if (newGroup === null)
+      {
         localStorage.removeItem('id')
         localStorage.removeItem('schedule')
         return
       }
       setLoading(true)
-      fetch(`https://s.knu.workers.dev/?age=${age}&group=${newGroup}`)
+      fetch(`https://g.knu.workers.dev/?age=${age}&group=${newGroup}`)
         .then(data => data.json())
         .then(data => data.schedule)
-        .then(data => {
+        .then(data =>
+        {
           console.log(data)
-          if (data !== null) {
+          if (data !== null)
+          {
             setSchedule(data)
-          } else {
+          } else
+          {
             console.log('Null data')
-            console.log(`get_plan.knu.workers.dev/?age=${age}&group=${newGroup}`)
+            console.log(`g.knu.workers.dev/?age=${age}&group=${newGroup}`)
           }
           setLoading(false)
           const id = { age, group: newGroup }
           localStorage.setItem('id', JSON.stringify(id))
           localStorage.setItem('schedule', JSON.stringify(data))
         })
-        .catch(e => {
+        .catch(e =>
+        {
           console.log(e)
           setLoading(false)
         })
-    } catch (e) {
+    } catch (e)
+    {
       console.log(e)
-      
+
     }
   }
 
-  useEffect(() => {
-    if (localStorage.getItem('id')) {
+  useEffect(() =>
+  {
+    if (localStorage.getItem('id'))
+    {
       const id = JSON.parse(localStorage.getItem('id'))
       const schedule = JSON.parse(localStorage.getItem('schedule'))
       setSchedule(schedule)
@@ -89,17 +104,20 @@ function GetQuery({ setSchedule }) {
       setGroup(oldGroup)
       console.log('Got cache data')
       setLoading(true)
-      fetch(`https://s.knu.workers.dev/?age=${oldAge}&group=${oldGroup}`)
+      fetch(`https://g.knu.workers.dev/?age=${oldAge}&group=${oldGroup}`)
         .then(data => data.json())
         .then(data => data.schedule)
-        .then(data => {
-          if (data !== null) {
+        .then(data =>
+        {
+          if (data !== null)
+          {
             console.log('Loaded new data')
             setSchedule(data)
           }
           setLoading(false)
         })
-        .catch(e => {
+        .catch(e =>
+        {
           console.log(e)
           setLoading(false)
         })

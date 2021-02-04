@@ -10,6 +10,8 @@ import GridOnIcon from '@material-ui/icons/GridOn';
 
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Footer from './comp/Footer';
+import Plan from './comp/Plan';
+import CollapsibleTable from './comp/Plan2';
 // const data = require('./data.json')
 
 
@@ -47,8 +49,12 @@ function App()
           </ListItem>
         </List>
       </SwipeableDrawer>
-      <GetQuery setSchedule={setSchedule} />
-      {(true) && <Schedule shedule={schedule} />}
+      {/* <GetQuery setSchedule={setSchedule} /> */}
+      {(false) && <Schedule shedule={schedule} />}
+      <Box>
+        <Plan></Plan>
+      </Box>
+      {(false) && <CollapsibleTable/>}
       <ScrollTop>
         <Fab color="secondary" size="small">
           <KeyboardArrowUpIcon />
